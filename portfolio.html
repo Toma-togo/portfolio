@@ -424,25 +424,108 @@
         }
         .gallery-subtitle a:hover { border-color: var(--accent-cyan); }
 
-        .gallery-filters {
-            display: flex; gap: 0.8rem; margin-bottom: 2.5rem; flex-wrap: wrap;
+        /* Project Tab Buttons */
+        .project-tabs {
+            display: flex; gap: 0.6rem; margin-bottom: 2rem; flex-wrap: wrap;
         }
-        .filter-btn {
-            padding: 0.45rem 1.1rem; background: transparent;
+        .ptab {
+            padding: 0.55rem 1.2rem; background: var(--bg-card);
             border: 1px solid var(--border-subtle); color: var(--text-secondary);
-            font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em;
-            text-transform: uppercase; cursor: pointer; transition: all 0.3s;
-            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.78rem; font-weight: 500; cursor: pointer;
+            transition: all 0.3s; font-family: 'Noto Sans KR', sans-serif;
+            white-space: nowrap;
         }
-        .filter-btn:hover, .filter-btn.active {
+        .ptab:hover { border-color: var(--border-hover); color: var(--text-primary); }
+        .ptab.active {
             border-color: var(--accent-cyan); color: var(--accent-cyan);
-            background: rgba(0,229,255,0.04);
+            background: rgba(0,229,255,0.06);
+            box-shadow: 0 0 20px rgba(0,229,255,0.08);
         }
 
-        /* Tweet Embed Featured Section */
-        .tweet-featured {
-            margin-bottom: 3rem;
+        /* Hero Image — main banner for each project */
+        .gallery-hero {
+            position: relative; width: 100%; aspect-ratio: 16/7;
+            overflow: hidden; background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            margin-bottom: 1.5rem; cursor: pointer;
         }
+        .gallery-hero img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .gallery-hero:hover img {
+            transform: scale(1.08) translateX(-2%);
+        }
+        .gallery-hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(8,8,13,0.9) 0%, rgba(8,8,13,0.3) 30%, transparent 60%);
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 2rem 2.5rem; transition: all 0.4s;
+        }
+        .gallery-hero-overlay h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem; font-weight: 800; margin-bottom: 0.3rem;
+        }
+        .gallery-hero-overlay .hero-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem; color: var(--accent-cyan); letter-spacing: 0.06em;
+        }
+        .gallery-hero-overlay .hero-desc {
+            font-size: 0.82rem; color: var(--text-secondary); font-weight: 300;
+            margin-top: 0.4rem; max-width: 500px;
+        }
+        .gallery-hero .slide-hint {
+            position: absolute; top: 1rem; right: 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem; color: rgba(255,255,255,0.3);
+            letter-spacing: 0.1em; text-transform: uppercase;
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .gallery-hero:hover .slide-hint { opacity: 1; }
+
+        @media (max-width: 768px) {
+            .gallery-hero { aspect-ratio: 16/9; }
+            .gallery-hero-overlay { padding: 1.2rem 1.5rem; }
+            .gallery-hero-overlay h2 { font-size: 1.2rem; }
+        }
+
+        /* Sub-gallery grid */
+        .sub-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        @media (max-width: 480px) {
+            .sub-gallery { grid-template-columns: 1fr; }
+        }
+        .sub-item {
+            overflow: hidden; background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            cursor: pointer; transition: all 0.3s;
+        }
+        .sub-item:hover {
+            border-color: var(--border-hover);
+            box-shadow: 0 4px 25px rgba(0,229,255,0.06);
+            transform: translateY(-2px);
+        }
+        .sub-item img, .sub-item video {
+            width: 100%; display: block; transition: transform 0.4s;
+        }
+        .sub-item:hover img { transform: scale(1.03); }
+
+        /* Sub item label */
+        .sub-item-label {
+            padding: 0.6rem 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem; color: var(--text-muted);
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        /* Fade transition for gallery switch */
+        .gallery-content { animation: fadeInUp 0.5s ease-out; }
+
+        /* Tweet section */
+        .tweet-section { margin-top: 5rem; }
         .tweet-featured-label {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.68rem; color: var(--accent-magenta);
@@ -452,33 +535,18 @@
         .tweet-featured-label::before {
             content: ''; width: 20px; height: 1px; background: var(--accent-magenta);
         }
-
         .tweet-embed-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 1.2rem;
         }
-
         .tweet-embed-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            padding: 1rem;
-            transition: all 0.3s;
-            overflow: hidden;
+            background: var(--bg-card); border: 1px solid var(--border-subtle);
+            padding: 1rem; transition: all 0.3s; overflow: hidden;
         }
-        .tweet-embed-card:hover {
-            border-color: var(--border-hover);
-            box-shadow: 0 0 25px rgba(0,229,255,0.06);
-        }
-
-        /* Override Twitter embed dark theme */
-        .tweet-embed-card .twitter-tweet { margin: 0 !important; }
-
-        /* Placeholder for tweet embeds */
+        .tweet-embed-card:hover { border-color: var(--border-hover); }
         .tweet-placeholder {
             padding: 2rem; text-align: center;
-            border: 1px dashed rgba(255,255,255,0.08);
-            background: rgba(255,255,255,0.01);
+            border: 1px dashed rgba(255,255,255,0.08); background: rgba(255,255,255,0.01);
         }
         .tweet-placeholder .tp-icon { font-size: 1.5rem; margin-bottom: 0.6rem; opacity: 0.3; }
         .tweet-placeholder .tp-text {
@@ -488,86 +556,17 @@
         .tweet-placeholder .tp-url {
             display: block; margin-top: 0.5rem;
             font-size: 0.65rem; color: var(--accent-cyan); opacity: 0.5;
-            word-break: break-all;
         }
-
-        /* Image Gallery Section */
-        .gallery-image-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem; color: var(--accent-violet);
-            letter-spacing: 0.15em; text-transform: uppercase;
-            margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem;
-        }
-        .gallery-image-label::before {
-            content: ''; width: 20px; height: 1px; background: var(--accent-violet);
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .gallery-item {
-            position: relative; aspect-ratio: 1/1; overflow: hidden;
-            background: var(--bg-card); border: 1px solid var(--border-subtle);
-            cursor: pointer; transition: all 0.4s;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .gallery-item:hover {
-            transform: translateY(-3px); border-color: var(--border-hover);
-            box-shadow: 0 0 30px rgba(0,229,255,0.08);
-        }
-
-        .gallery-item img, .gallery-item video {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;
-        }
-        .gallery-item:hover img, .gallery-item:hover video { transform: scale(1.04); }
-
-        .gallery-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(8,8,13,0.95) 0%, transparent 50%);
-            display: flex; flex-direction: column; justify-content: flex-end;
-            padding: 1.2rem; opacity: 0; transition: opacity 0.4s;
-        }
-        .gallery-item:hover .gallery-overlay { opacity: 1; }
-        .gallery-overlay h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
-        .gallery-overlay .tag {
-            font-size: 0.65rem; color: var(--accent-cyan);
-            font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em;
-        }
-        .gallery-overlay .tweet-link {
-            display: inline-flex; align-items: center; gap: 0.3rem;
-            font-size: 0.6rem; color: var(--accent-magenta);
-            text-decoration: none; margin-top: 0.4rem;
-            font-family: 'JetBrains Mono', monospace;
-            opacity: 0.7; transition: opacity 0.3s;
-        }
-        .gallery-overlay .tweet-link:hover { opacity: 1; }
-
-        .gallery-placeholder {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem; color: var(--text-muted); text-align: center; padding: 1.5rem;
-        }
-        .gallery-placeholder .icon { font-size: 2.2rem; margin-bottom: 0.6rem; opacity: 0.25; }
-
-        /* Twitter Follow CTA */
         .twitter-cta {
             margin-top: 2.5rem; padding: 1.5rem; text-align: center;
-            background: var(--bg-card); border: 1px solid var(--border-subtle);
-            transition: all 0.3s;
+            background: var(--bg-card); border: 1px solid var(--border-subtle); transition: all 0.3s;
         }
         .twitter-cta:hover { border-color: var(--border-hover); }
-        .twitter-cta-text {
-            font-size: 0.85rem; color: var(--text-secondary); font-weight: 300;
-            margin-bottom: 1rem;
-        }
+        .twitter-cta-text { font-size: 0.85rem; color: var(--text-secondary); font-weight: 300; margin-bottom: 1rem; }
         .twitter-cta a {
             display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.6rem 1.5rem;
-            background: #1d9bf0; color: #fff;
-            text-decoration: none; font-size: 0.8rem; font-weight: 600;
-            border: none; transition: all 0.3s;
+            padding: 0.6rem 1.5rem; background: #1d9bf0; color: #fff;
+            text-decoration: none; font-size: 0.8rem; font-weight: 600; border: none; transition: all 0.3s;
         }
         .twitter-cta a:hover { background: #1a8cd8; transform: translateY(-2px); }
 
@@ -938,209 +937,60 @@
     </div>
 </section>
 
-<!-- GALLERY — Twitter Art + Image Gallery -->
+<!-- GALLERY — Tab Switch Gallery -->
 <section id="gallery">
     <div class="reveal">
         <div class="section-label">05 — Art Gallery</div>
         <div class="section-title">작업물 갤러리</div>
     </div>
 
-    <div class="gallery-filters reveal">
-        <button class="filter-btn active" onclick="filterGallery('all')">All</button>
-        <button class="filter-btn" onclick="filterGallery('ai-subculture')">AI Art (서브컬쳐)</button>
-        <button class="filter-btn" onclick="filterGallery('hand-drawn')">직접 작업 아트</button>
-        <button class="filter-btn" onclick="filterGallery('game-art')">게임 리소스</button>
-        <button class="filter-btn" onclick="filterGallery('workflow')">워크플로우</button>
+    <!-- Project Tab Buttons -->
+    <div class="project-tabs reveal" id="projectTabs">
+        <button class="ptab active" onclick="switchProject('gm')">게임이 망했다</button>
+        <button class="ptab" onclick="switchProject('cs')">카운터사이드</button>
+        <button class="ptab" onclick="switchProject('ove')">오브제네레이션</button>
+        <button class="ptab" onclick="switchProject('gn')">그림노츠</button>
+        <button class="ptab" onclick="switchProject('ba')">블루아카이브</button>
+        <button class="ptab" onclick="switchProject('ma')">괴리성 밀리언아서</button>
+        <button class="ptab" onclick="switchProject('tm')">테이밍 마스터</button>
     </div>
 
-    <!-- ★ 이미지 갤러리: 메인 작업물 (상단) ★ -->
-    <div class="reveal">
-        <div class="gallery-image-label">🖼️ Gallery — All Works</div>
+    <!-- Gallery Content Area (dynamically rendered) -->
+    <div class="gallery-content reveal" id="galleryContent">
+        <!-- JS가 여기에 대표이미지 + 서브갤러리를 렌더링 -->
     </div>
 
-    <div class="gallery-grid reveal" id="galleryGrid">
-        <!--
-            ✏️ [EDIT] 이미지 갤러리 추가 방법:
-
-            === 이미지 + 트윗 링크 연결 ===
-            <div class="gallery-item" data-category="ai-subculture" onclick="openLightbox(this)">
-                <img src="이미지URL" alt="설명">
-                <div class="gallery-overlay">
-                    <div class="tag">AI Art · Subculture</div>
-                    <h4>제목</h4>
-                    <a href="https://twitter.com/togokaeri/status/트윗ID" target="_blank"
-                       class="tweet-link" onclick="event.stopPropagation()">
-                        🐦 원본 트윗 보기 →
-                    </a>
-                </div>
-            </div>
-
-            === 이미지만 (트윗 링크 없이) ===
-            <div class="gallery-item" data-category="hand-drawn" onclick="openLightbox(this)">
-                <img src="이미지URL" alt="설명">
-                <div class="gallery-overlay">
-                    <div class="tag">Hand-drawn</div>
-                    <h4>제목</h4>
-                </div>
-            </div>
-
-            ※ 트위터 이미지 직접 URL 얻는 법:
-               트위터에서 이미지 우클릭 → "이미지 주소 복사"
-               형식: https://pbs.twimg.com/media/XXXXX?format=jpg&name=large
-               ⚠️ 트위터 이미지 URL은 시간이 지나면 깨질 수 있으므로
-                  다운로드 후 직접 호스팅 추천 (Cloudflare R2, GitHub 등)
-        -->
-
-        <!-- AI Art 서브컬쳐 -->
-        <div class="gallery-item" data-category="ai-subculture">
-            <div class="gallery-placeholder">
-                <div class="icon">🎨</div>AI 캐릭터 일러스트 #1<br><small>이미지 + 트윗 링크</small>
-            </div>
-            <div class="gallery-overlay">
-                <div class="tag">AI Art · Subculture</div>
-                <h4>AI 캐릭터 일러스트</h4>
-                <a href="https://twitter.com/togokaeri" target="_blank" class="tweet-link" onclick="event.stopPropagation()">🐦 원본 트윗 보기 →</a>
-            </div>
-        </div>
-
-        <div class="gallery-item" data-category="ai-subculture">
-            <div class="gallery-placeholder">
-                <div class="icon">🎨</div>AI 일러스트 #2<br><small>이미지 + 트윗 링크</small>
-            </div>
-            <div class="gallery-overlay">
-                <div class="tag">AI Art · Subculture</div>
-                <h4>AI 일러스트</h4>
-                <a href="https://twitter.com/togokaeri" target="_blank" class="tweet-link" onclick="event.stopPropagation()">🐦 원본 트윗 보기 →</a>
-            </div>
-        </div>
-
-        <div class="gallery-item" data-category="ai-subculture">
-            <div class="gallery-placeholder">
-                <div class="icon">🎨</div>AI 배경 아트<br><small>이미지 + 트윗 링크</small>
-            </div>
-            <div class="gallery-overlay">
-                <div class="tag">AI Art · Subculture</div>
-                <h4>AI 배경 아트</h4>
-                <a href="https://twitter.com/togokaeri" target="_blank" class="tweet-link" onclick="event.stopPropagation()">🐦 원본 트윗 보기 →</a>
-            </div>
-        </div>
-
-        <!-- 직접 작업 아트 -->
-        <div class="gallery-item" data-category="hand-drawn">
-            <div class="gallery-placeholder">
-                <div class="icon">🖌️</div>직접 작업 캐릭터 원화<br><small>이미지 + 트윗 링크</small>
-            </div>
-            <div class="gallery-overlay">
-                <div class="tag">Hand-drawn</div>
-                <h4>캐릭터 원화</h4>
-                <a href="https://twitter.com/togokaeri" target="_blank" class="tweet-link" onclick="event.stopPropagation()">🐦 원본 트윗 보기 →</a>
-            </div>
-        </div>
-
-        <div class="gallery-item" data-category="hand-drawn">
-            <div class="gallery-placeholder">
-                <div class="icon">🖌️</div>직접 작업 일러스트<br><small>이미지 + 트윗 링크</small>
-            </div>
-            <div class="gallery-overlay">
-                <div class="tag">Hand-drawn</div>
-                <h4>일러스트</h4>
-                <a href="https://twitter.com/togokaeri" target="_blank" class="tweet-link" onclick="event.stopPropagation()">🐦 원본 트윗 보기 →</a>
-            </div>
-        </div>
-
-        <!-- 게임 리소스 -->
-        <div class="gallery-item" data-category="game-art">
-            <div class="gallery-placeholder">
-                <div class="icon">🎮</div>인게임 리소스<br><small>이미지를 추가해주세요</small>
-            </div>
-            <div class="gallery-overlay">
-                <div class="tag">Game Art</div>
-                <h4>인게임 리소스</h4>
-            </div>
-        </div>
-
-        <!-- 워크플로우 -->
-        <div class="gallery-item" data-category="workflow">
-            <div class="gallery-placeholder">
-                <div class="icon">⚙️</div>ComfyUI 워크플로우<br><small>스크린샷을 추가해주세요</small>
-            </div>
-            <div class="gallery-overlay">
-                <div class="tag">Workflow</div>
-                <h4>ComfyUI 워크플로우</h4>
-            </div>
-        </div>
-    </div>
-
-    <!-- ★ 트윗 임베드 대표작 (하단) ★ -->
-    <div class="tweet-featured reveal" data-filter="all ai-subculture hand-drawn" style="margin-top: 5rem;">
+    <!-- ★ 트위터 임베드 (하단) ★ -->
+    <div class="tweet-section reveal">
         <p class="gallery-subtitle" style="margin-bottom: 1.5rem;">
             트위터 <a href="https://twitter.com/togokaeri" target="_blank">@togokaeri</a>에 공유한 아트워크와 프로젝트 작업물입니다.
         </p>
         <div class="tweet-featured-label">🐦 Twitter Highlights — @togokaeri</div>
         <div class="tweet-embed-grid" id="tweetGrid">
-            <!--
-                ✏️ [EDIT] 트윗 임베드 추가 방법:
-                1. 트위터에서 아트 트윗 열기
-                2. ··· 메뉴 → "트윗 퍼가기" (Embed Tweet) 클릭
-                3. 나온 코드에서 <blockquote> 부분만 복사
-                4. 아래 tweet-embed-card 안에 붙여넣기
-                5. data-theme="dark" 추가하면 다크모드 적용
-
-                예시:
-                <div class="tweet-embed-card">
-                    <blockquote class="twitter-tweet" data-theme="dark">
-                        <a href="https://twitter.com/togokaeri/status/트윗ID"></a>
-                    </blockquote>
-                </div>
-            -->
-
-            <!-- 대표작 1 -->
             <div class="tweet-embed-card">
                 <div class="tweet-placeholder">
                     <div class="tp-icon">🐦</div>
-                    <div class="tp-text">
-                        대표작 트윗 임베드 #1<br>
-                        트위터에서 아트 트윗의<br>
-                        "트윗 퍼가기" 코드를 붙여넣으세요
-                        <span class="tp-url">https://twitter.com/togokaeri/status/트윗ID</span>
-                    </div>
+                    <div class="tp-text">대표작 트윗 임베드 #1<br><span class="tp-url">트윗 URL을 넣어주세요</span></div>
                 </div>
             </div>
-
-            <!-- 대표작 2 -->
             <div class="tweet-embed-card">
                 <div class="tweet-placeholder">
                     <div class="tp-icon">🐦</div>
-                    <div class="tp-text">
-                        대표작 트윗 임베드 #2<br>
-                        트위터에서 아트 트윗의<br>
-                        "트윗 퍼가기" 코드를 붙여넣으세요
-                        <span class="tp-url">https://twitter.com/togokaeri/status/트윗ID</span>
-                    </div>
+                    <div class="tp-text">대표작 트윗 임베드 #2<br><span class="tp-url">트윗 URL을 넣어주세요</span></div>
                 </div>
             </div>
-
-            <!-- 대표작 3 -->
             <div class="tweet-embed-card">
                 <div class="tweet-placeholder">
                     <div class="tp-icon">🐦</div>
-                    <div class="tp-text">
-                        대표작 트윗 임베드 #3<br>
-                        트위터에서 아트 트윗의<br>
-                        "트윗 퍼가기" 코드를 붙여넣으세요
-                        <span class="tp-url">https://twitter.com/togokaeri/status/트윗ID</span>
-                    </div>
+                    <div class="tp-text">대표작 트윗 임베드 #3<br><span class="tp-url">트윗 URL을 넣어주세요</span></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Twitter Follow CTA -->
     <div class="twitter-cta reveal">
         <p class="twitter-cta-text">더 많은 아트워크는 트위터에서 확인하세요</p>
-        <a href="https://twitter.com/togokaeri" target="_blank">
-            🐦 @togokaeri 팔로우
-        </a>
+        <a href="https://twitter.com/togokaeri" target="_blank">🐦 @togokaeri 팔로우</a>
     </div>
 </section>
 
@@ -1380,32 +1230,151 @@
         nextStep();
     }
 
-    // ===== GALLERY FILTER =====
-    function filterGallery(cat) {
-        document.querySelectorAll('.gallery-filters .filter-btn').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
+    // ===== PROJECT TAB GALLERY =====
+    const projects = {
+        gm: {
+            title: '게임이 망했다',
+            company: '마프게임즈',
+            desc: '인게임 캐릭터, UI, 리소스 및 애니메이션 작업',
+            // ✏️ gm-main.webp 준비되면 여기 교체
+            main: 'images/gm-001.png',
+            groups: [
+                { label: '캐릭터 일러스트 A', files: ['images/gm-001.png','images/gm-002.png','images/gm-003.png'] },
+                { label: '캐릭터 일러스트 B', files: ['images/gm-005.png','images/gm-006.png','images/gm-007.png','images/gm-008.png'] },
+                { label: '인게임 리소스', files: ['images/gm-010.png','images/gm-011.png','images/gm-012.png','images/gm-013.png','images/gm-014.png'] },
+                { label: 'UI · 스프라이트 · GIF', files: [
+                    'images/gm-020.png','images/gm-021.png','images/gm-022.png','images/gm-023.png',
+                    'images/gm-024.png','images/gm-025.png','images/gm-026.png','images/gm-027.png',
+                    'images/gm-028.png','images/gm-030.png',
+                    'images/gm-040.gif','images/gm-041.gif','images/gm-042.gif','images/gm-043.gif','images/gm-044.gif'
+                ]},
+                { label: '게임 화면', files: ['images/gm-080.png','images/gm-081.png','images/gm-082.png'] },
+                { label: '이펙트 · 애니메이션', files: ['images/gm-091.gif','images/gm-092.gif','images/gm-093.png','images/gm-094.png'] }
+            ]
+        },
+        cs: {
+            title: '카운터사이드',
+            company: '외주',
+            desc: '캐릭터 일러스트 및 영상 작업',
+            main: 'images/cs-01.webp',
+            groups: [
+                { label: '일러스트', files: ['images/cs-01.webp','images/cs-02.jpg'] },
+                { label: '영상', videos: ['videos/cs-videos.mp4'] }
+            ]
+        },
+        ove: {
+            title: '여신의키스 오브제네레이션',
+            company: '플레로게임즈',
+            desc: '캐릭터 원화 및 DMM 개발 아트 작업',
+            main: 'images/ove-01.webp',
+            groups: [
+                { label: '캐릭터 원화', files: [
+                    'images/ove-01.webp','images/ove-011.webp','images/ove-012.webp',
+                    'images/ove-013.webp','images/ove-014.webp','images/ove-02.webp','images/ove-03.webp'
+                ]}
+            ]
+        },
+        gn: {
+            title: '그림노츠',
+            company: '플레로게임즈',
+            desc: '한국판 로컬라이징 캐릭터 아트',
+            main: 'images/gn-01.png',
+            groups: [
+                { label: '캐릭터 아트', files: ['images/gn-01.png','images/gn-02.png','images/gn-03.png','images/gn-04.png','images/gn-10.png'] }
+            ]
+        },
+        ba: {
+            title: '블루아카이브',
+            company: '개인 작업',
+            desc: 'AI 아트 / 팬아트',
+            main: 'images/ba-01.webp',
+            groups: [
+                { label: '아트', files: ['images/ba-01.webp'] }
+            ]
+        },
+        ma: {
+            title: '괴리성 밀리언아서',
+            company: '외주',
+            desc: '캐릭터 일러스트 작업',
+            main: 'images/ma-01.webp',
+            groups: [
+                { label: '일러스트', files: ['images/ma-01.webp','images/ma-02.webp'] }
+            ]
+        },
+        tm: {
+            title: '테이밍 마스터',
+            company: '외주',
+            desc: '캐릭터 일러스트 작업',
+            main: 'images/tm-01.webp',
+            groups: [
+                { label: '일러스트', files: ['images/tm-01.webp','images/tm-02.webp'] }
+            ]
+        }
+    };
 
-        // Filter image gallery items
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            if (cat === 'all' || item.dataset.category === cat) {
-                item.style.display = '';
-                item.style.animation = 'fadeInUp 0.4s ease-out both';
-            } else {
-                item.style.display = 'none';
+    function switchProject(key) {
+        // Update active tab
+        document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+        renderProject(key);
+    }
+
+    function renderProject(key) {
+        const p = projects[key];
+        if (!p) return;
+
+        let html = '';
+
+        // Hero image
+        html += `<div class="gallery-hero" onclick="openLightbox(this)">
+            <img src="${p.main}" alt="${p.title}" loading="lazy">
+            <div class="gallery-hero-overlay">
+                <div class="hero-meta">${p.company}</div>
+                <h2>${p.title}</h2>
+                <div class="hero-desc">${p.desc}</div>
+            </div>
+            <div class="slide-hint">↔ hover to pan</div>
+        </div>`;
+
+        // Sub gallery - grouped
+        p.groups.forEach(g => {
+            html += `<div style="margin-bottom:0.6rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-muted);letter-spacing:0.08em;margin-top:1.5rem;">${g.label}</div>`;
+            html += `<div class="sub-gallery">`;
+
+            // Videos
+            if (g.videos) {
+                g.videos.forEach(v => {
+                    html += `<div class="sub-item">
+                        <video src="${v}" controls muted playsinline style="width:100%;display:block;"></video>
+                    </div>`;
+                });
             }
+
+            // Images
+            if (g.files) {
+                g.files.forEach(f => {
+                    const isGif = f.endsWith('.gif');
+                    html += `<div class="sub-item" onclick="openLightbox(this)">
+                        <img src="${f}" alt="${g.label}" loading="lazy"
+                            ${isGif ? 'style="background:#08080d;"' : ''}>
+                    </div>`;
+                });
+            }
+
+            html += `</div>`;
         });
 
-        // Show/hide tweet featured section based on filter
-        const tweetSection = document.querySelector('.tweet-featured');
-        if (tweetSection) {
-            const filterData = tweetSection.getAttribute('data-filter') || 'all';
-            if (cat === 'all' || filterData.includes(cat)) {
-                tweetSection.style.display = '';
-            } else {
-                tweetSection.style.display = 'none';
-            }
-        }
+        const container = document.getElementById('galleryContent');
+        container.innerHTML = html;
+        container.style.animation = 'none';
+        container.offsetHeight; // trigger reflow
+        container.style.animation = 'fadeInUp 0.5s ease-out';
     }
+
+    // Initial render
+    document.addEventListener('DOMContentLoaded', () => {
+        renderProject('gm');
+    });
 
     // ===== LIGHTBOX =====
     function openLightbox(el) {
